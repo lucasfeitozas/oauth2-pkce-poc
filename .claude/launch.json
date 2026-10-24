@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "auth-server",
+      "runtimeExecutable": ".venv/bin/uvicorn",
+      "runtimeArgs": ["auth_server:app", "--app-dir", "backend", "--port", "9000"],
+      "port": 9000
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": ".venv/bin/uvicorn",
+      "runtimeArgs": ["api:app", "--app-dir", "backend", "--port", "8000"],
+      "port": 8000
+    },
+    {
+      "name": "front-bff",
+      "runtimeExecutable": ".venv/bin/uvicorn",
+      "runtimeArgs": ["bff:app", "--app-dir", "backend", "--port", "3000"],
+      "port": 3000
+    }
+  ]
+}

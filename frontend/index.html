@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OAuth2 PKCE POC</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>OAuth2 Authorization Code + PKCE</h1>
+    <p>Buscando os dados do usuário com <code>GET /me</code>, sem mandar ID nenhum: quem é o usuário vem do token.</p>
+  </header>
+
+  <main>
+    <section class="modes">
+      <article class="card">
+        <h2>Modo SPA</h2>
+        <p class="hint">O browser faz o PKCE e guarda o access token <strong>só em memória</strong>. Recarregar a página perde o token.</p>
+        <div class="status" id="spa-status">Sem token</div>
+        <div class="actions">
+          <button id="spa-login" class="primary">Login (PKCE no browser)</button>
+          <button id="spa-me" disabled>GET /me com token</button>
+          <button id="spa-me-no-token">GET /me sem token</button>
+          <button id="spa-me-tampered" disabled>GET /me com sub adulterado</button>
+          <button id="spa-forget" disabled>Descartar token</button>
+        </div>
+      </article>
+
+      <article class="card recommended">
+        <h2>Modo BFF <span class="badge">recomendado</span></h2>
+        <p class="hint">O servidor faz o PKCE e guarda o token. O browser recebe só um cookie <code>HttpOnly</code>, que o JavaScript não consegue ler.</p>
+        <div class="status" id="bff-status">Verificando sessão…</div>
+        <div class="actions">
+          <button id="bff-login" class="primary">Login via BFF</button>
+          <button id="bff-me">GET /bff/api/me</button>
+          <button id="bff-cookie">O que o JS vê do cookie?</button>
+          <button id="bff-logout">Logout</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="card log-card">
+      <div class="log-header">
+        <h2>Conversa HTTP</h2>
+        <button id="clear-log" class="ghost">Limpar</button>
+      </div>
+      <ol id="log" class="log"></ol>
+      <p id="log-empty" class="hint">Clique em um botão acima para ver cada passo do fluxo.</p>
+    </section>
+  </main>
+</body>
+</html>
